@@ -6,7 +6,8 @@ class_name SkillData extends Resource
 @export_multiline var localization_description: String = "New description."
 
 @export_category("Definitions")
-@export var base_cost:       int  = 5
+@export var base_sp_cost:    int  = 5
+@export var base_ap_cost:    int  = 1
 @export var is_passive:      bool = false
 @export var num_activations: int  = 1
 

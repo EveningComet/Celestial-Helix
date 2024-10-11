@@ -1,8 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3wsvvokhejrf"]
+[gd_scene load_steps=15 format=3 uid="uid://c3wsvvokhejrf"]
 
 [ext_resource type="Texture2D" uid="uid://y071sw4p8450" path="res://Imported Assets/KenneyNL/Prototyping Textures/Dark/texture_01.png" id="1_to7jm"]
 [ext_resource type="Texture2D" uid="uid://bts48hhhmcwje" path="res://Imported Assets/KenneyNL/Prototyping Textures/Green/texture_02.png" id="2_7mpej"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/BattleController.gd" id="3_m7a3b"]
+[ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCInitialize.gd" id="4_ts7l7"]
+[ext_resource type="PackedScene" uid="uid://bftxxwlkeet3v" path="res://Scenes/Characters/Unit Template.tscn" id="5_0nhy1"]
+[ext_resource type="Script" path="res://Scripts/Player/CameraController.gd" id="5_3clpg"]
+[ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCPlayer.gd" id="5_qmi0x"]
+[ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCCPU.gd" id="6_ibspp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8iy3n"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -24,6 +29,8 @@ uv1_triplanar = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_im4l4"]
 albedo_texture = ExtResource("2_7mpej")
 uv1_triplanar = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ustwk"]
 
 [node name="Testing Level" type="Node3D"]
 
@@ -71,5 +78,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1, -15)
 size = Vector3(10, 4, 3)
 material = SubResource("StandardMaterial3D_im4l4")
 
-[node name="Battle Controller" type="Node" parent="."]
+[node name="Battle Controller" type="Node" parent="." node_paths=PackedStringArray("camera_controller", "participants")]
 script = ExtResource("3_m7a3b")
+camera_controller = NodePath("../Camera Rig")
+participants = [NodePath("../Unit Template")]
+initial_state = NodePath("BCInitialize")
+
+[node name="BCInitialize" type="Node" parent="Battle Controller"]
+script = ExtResource("4_ts7l7")
+
+[node name="BCPlayer" type="Node" parent="Battle Controller"]
+script = ExtResource("5_qmi0x")
+
+[node name="BCCPU" type="Node" parent="Battle Controller"]
+script = ExtResource("6_ibspp")
+
+[node name="Camera Rig" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 2)
+shape = SubResource("SphereShape3D_ustwk")
+spring_length = 5.0
+margin = 0.2
+script = ExtResource("5_3clpg")
+
+[node name="Camera3D" type="Camera3D" parent="Camera Rig"]
+
+[node name="Unit Template" parent="." instance=ExtResource("5_0nhy1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -15)
