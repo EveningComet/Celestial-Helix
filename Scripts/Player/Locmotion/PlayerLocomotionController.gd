@@ -2,4 +2,4 @@
 class_name PlayerLocomotionController extends StateMachine
 
 ## The character currently being controlled by the player.
-@export var active: Unit
+@export var active_participant: Unit

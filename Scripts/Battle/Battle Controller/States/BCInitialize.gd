@@ -18,5 +18,8 @@ func _initialize_battle() -> void:
 	# TODO: Sort based on the unit's speed.
 	get_turn_queue().append_array( get_participants() )
 	
+	# TODO: Figure out how to overcome this race condition.
+	await get_tree().create_timer(0.1, false, true).timeout
+	
 	# Start with the fastest unit
 	active_participant = get_turn_queue().pop_front()

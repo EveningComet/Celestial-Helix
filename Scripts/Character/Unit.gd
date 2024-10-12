@@ -4,6 +4,7 @@ class_name Unit extends CharacterBody3D
 ## Activated when this character has 
 signal finished_turn(unit: Unit)
 
+## The action points the unit currently has.
 @export var curr_action_points: int = 3
 
 @export_category("Components")
