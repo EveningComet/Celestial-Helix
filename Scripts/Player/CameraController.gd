@@ -1,7 +1,11 @@
 ## Controls the battle camera.
 class_name CameraController extends SpringArm3D
 
+## How fast the camera moves.
+@export var speed: float = 10.0
+
 @export var offset: Vector3 = Vector3(0.0, 1.5, 0.0)
+
 @export var target: Node3D = null
 
 var mouse_sensitivity:      float = 0.1 # TODO: Clamp this between 0.1 and 1. Also, make this a global setting.
@@ -28,10 +32,28 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotation_degrees.y = wrapf(rotation_degrees.y, wrap_0, wrap_max)
 
 func _physics_process(delta: float) -> void:
-	global_position = target.global_position + offset
+	handle_move(delta)
+	apply_controller_rotation()
+
+func apply_controller_rotation() -> void:
+	var axis_vector = Vector2.ZERO
+	axis_vector.y = Input.get_action_strength("look_left") - Input.get_action_strength("look_right")
+	axis_vector.x = Input.get_action_strength("look_up") - Input.get_action_strength("look_down")
+	if InputEventJoypadMotion:
+		# Handle the controller's x rotation
+		rotation_degrees.x -= axis_vector.x * controller_sensitivity
+		rotation_degrees.x = clamp(rotation_degrees.x, min_pitch, max_pitch)
+		
+		# Handle the controller's y rotation
+		rotation_degrees.y -= axis_vector.y * controller_sensitivity
+		rotation_degrees.y = wrapf(rotation_degrees.y, wrap_0, wrap_max)
+
+func handle_move(delta: float) -> void:
+	global_position = lerp(global_position, target.global_position + offset, speed * delta)
 
 func set_target(new_target: Node3D) -> void:
+	if target != null:
+		remove_excluded_object(target)
 	target = new_target
-	global_position = target.global_position
-	await get_tree().create_timer(0.1, false, true).timeout # TODO: Figure out how to overcome this race condition.
+	add_excluded_object(target)
 	set_physics_process(true)

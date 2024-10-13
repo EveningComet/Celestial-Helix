@@ -34,3 +34,9 @@ func _on_turn_finished(u: Unit) -> void:
 	
 	if get_turn_queue().size() > 0:
 		active_participant = get_turn_queue().pop_front()
+	
+	# Start a new turn
+	else:
+		# TODO: Sort based on the unit's speed.
+		get_turn_queue().append_array( get_participants() )
+		active_participant = get_turn_queue().pop_front()

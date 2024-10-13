@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/Battle/BattleHUD.gd" id="1_parf7"]
 
-[node name="Battle HUD" type="CanvasLayer" node_paths=PackedStringArray("action_points_displayer_container")]
+[node name="Battle HUD" type="CanvasLayer" node_paths=PackedStringArray("action_points_displayer_container", "action_points_value_displayer")]
 script = ExtResource("1_parf7")
 action_points_displayer_container = NodePath("Control/Action Points Displayer Container")
+action_points_value_displayer = NodePath("Control/Action Points Displayer Container/Value Label")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

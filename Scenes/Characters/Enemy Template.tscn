@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://bb528yh326vob"]
+
+[ext_resource type="Script" path="res://Scripts/Character/Unit.gd" id="1_pstkd"]
+[ext_resource type="PackedScene" uid="uid://b22rgxmign6cy" path="res://Imported Assets/Models/Vinrax/Vinrax Female Secretary.glb" id="2_cerhu"]
+[ext_resource type="Script" path="res://Scripts/Character/Combatant.gd" id="3_k4cg1"]
+[ext_resource type="Script" path="res://Scripts/Character/FactionOwner.gd" id="4_gnvhy"]
+[ext_resource type="Script" path="res://Scripts/Character/Movement/Mover.gd" id="5_2rxt5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k446r"]
+
+[node name="Enemy Template" type="CharacterBody3D" node_paths=PackedStringArray("combatant", "mover", "faction_owner")]
+script = ExtResource("1_pstkd")
+combatant = NodePath("Combatant")
+mover = NodePath("Mover")
+faction_owner = NodePath("FactionOwner")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_k446r")
+
+[node name="GFX" type="Node3D" parent="."]
+
+[node name="Vinrax Female Secretary" parent="GFX" instance=ExtResource("2_cerhu")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Combatant" type="Node" parent="."]
+script = ExtResource("3_k4cg1")
+
+[node name="FactionOwner" type="Node" parent="."]
+script = ExtResource("4_gnvhy")
+faction = 1
+
+[node name="Mover" type="Node" parent="."]
+script = ExtResource("5_2rxt5")

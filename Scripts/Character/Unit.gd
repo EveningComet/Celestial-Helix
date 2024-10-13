@@ -10,5 +10,6 @@ signal finished_turn(unit: Unit)
 @export_category("Components")
 ## Reference to the node that stores the character's stats, skills, and status
 ## effects.
-@export var combatant: Combatant
+@export var combatant:     Combatant
+@export var mover:         Mover
 @export var faction_owner: FactionOwner

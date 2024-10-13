@@ -13,3 +13,6 @@ class_name SkillData extends Resource
 
 ## The objects that define how this skill should do things.
 @export var effects: Array[SkillEffect] = []
+
+func execute(user: Unit) -> void:
+	pass

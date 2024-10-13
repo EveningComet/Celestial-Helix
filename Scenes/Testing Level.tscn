@@ -1,14 +1,16 @@
-[gd_scene load_steps=20 format=3 uid="uid://c3wsvvokhejrf"]
+[gd_scene load_steps=23 format=3 uid="uid://c3wsvvokhejrf"]
 
 [ext_resource type="Texture2D" uid="uid://y071sw4p8450" path="res://Imported Assets/KenneyNL/Prototyping Textures/Dark/texture_01.png" id="1_to7jm"]
 [ext_resource type="Texture2D" uid="uid://bts48hhhmcwje" path="res://Imported Assets/KenneyNL/Prototyping Textures/Green/texture_02.png" id="2_7mpej"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/BattleController.gd" id="3_m7a3b"]
+[ext_resource type="Texture2D" uid="uid://lcmgy5ep1yjo" path="res://Imported Assets/KenneyNL/Prototyping Textures/Green/texture_01.png" id="3_yfk4s"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCInitialize.gd" id="4_ts7l7"]
 [ext_resource type="PackedScene" uid="uid://bftxxwlkeet3v" path="res://Scenes/Characters/Unit Template.tscn" id="5_0nhy1"]
 [ext_resource type="Script" path="res://Scripts/Player/CameraController.gd" id="5_3clpg"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCPlayer.gd" id="5_qmi0x"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCCPU.gd" id="6_ibspp"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCEnd.gd" id="7_h6n00"]
+[ext_resource type="PackedScene" uid="uid://bb528yh326vob" path="res://Scenes/Characters/Enemy Template.tscn" id="9_k366k"]
 [ext_resource type="Script" path="res://Scripts/Player/Locmotion/PlayerLocomotionController.gd" id="10_bqfox"]
 [ext_resource type="PackedScene" uid="uid://d00i5ca8e7utg" path="res://Scenes/UI/Battle/Battle HUD.tscn" id="10_w06yh"]
 [ext_resource type="Script" path="res://Scripts/Player/Locmotion/State/PLWaiting.gd" id="12_r67vc"]
@@ -33,6 +35,10 @@ uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_im4l4"]
 albedo_texture = ExtResource("2_7mpej")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vpc0e"]
+albedo_texture = ExtResource("3_yfk4s")
 uv1_triplanar = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ustwk"]
@@ -83,10 +89,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1, -15)
 size = Vector3(10, 4, 3)
 material = SubResource("StandardMaterial3D_im4l4")
 
+[node name="Ramp" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.38461, 0.507692, -16.5)
+polygon = PackedVector2Array(0, 0, 0, 2.5, 10, 0)
+depth = 3.0
+material = SubResource("StandardMaterial3D_vpc0e")
+
 [node name="Battle Controller" type="Node" parent="." node_paths=PackedStringArray("camera_controller", "participants")]
 script = ExtResource("3_m7a3b")
 camera_controller = NodePath("../Camera Rig")
-participants = [NodePath("../Enemy"), NodePath("../Unit Template2")]
+participants = [NodePath("../Test Enemy"), NodePath("../Unit Template2"), NodePath("../Unit Template3")]
 initial_state = NodePath("BCInitialize")
 
 [node name="BCInitialize" type="Node" parent="Battle Controller"]
@@ -105,19 +117,25 @@ script = ExtResource("7_h6n00")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 2)
 shape = SubResource("SphereShape3D_ustwk")
 spring_length = 5.0
-margin = 0.2
+margin = 0.5
 script = ExtResource("5_3clpg")
 
 [node name="Camera3D" type="Camera3D" parent="Camera Rig"]
+current = true
 
-[node name="Enemy" parent="." instance=ExtResource("5_0nhy1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -15)
+[node name="Test Enemy" parent="." instance=ExtResource("9_k366k")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 3, -15)
 
 [node name="Unit Template2" parent="." instance=ExtResource("5_0nhy1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.601848, -2)
+curr_action_points = 5
 
-[node name="PlayerLocomotionController" type="Node" parent="."]
+[node name="Unit Template3" parent="." instance=ExtResource("5_0nhy1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.601848, -2)
+
+[node name="PlayerLocomotionController" type="Node" parent="." node_paths=PackedStringArray("camera_controller")]
 script = ExtResource("10_bqfox")
+camera_controller = NodePath("../Camera Rig")
 initial_state = NodePath("PLWaiting")
 
 [node name="PLWaiting" type="Node" parent="PlayerLocomotionController"]

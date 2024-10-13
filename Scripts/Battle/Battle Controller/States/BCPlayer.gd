@@ -6,5 +6,5 @@ func enter(msgs: Dictionary = {}) -> void:
 		print("BCPlayer :: The active unit is controlled by the player.")
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("end_turn"):
 		active_participant.finished_turn.emit( active_participant )

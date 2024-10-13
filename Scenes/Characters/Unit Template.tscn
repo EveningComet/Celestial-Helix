@@ -1,23 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://bftxxwlkeet3v"]
+[gd_scene load_steps=7 format=3 uid="uid://bftxxwlkeet3v"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Unit.gd" id="1_s0uje"]
+[ext_resource type="PackedScene" uid="uid://b22rgxmign6cy" path="res://Imported Assets/Models/Vinrax/Vinrax Female Secretary.glb" id="2_etbrk"]
 [ext_resource type="Script" path="res://Scripts/Character/Combatant.gd" id="2_ufuje"]
 [ext_resource type="Script" path="res://Scripts/Character/FactionOwner.gd" id="3_1uaee"]
+[ext_resource type="Script" path="res://Scripts/Character/Movement/Mover.gd" id="5_msisb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k446r"]
 
-[node name="Unit Template" type="CharacterBody3D" node_paths=PackedStringArray("combatant", "faction_owner")]
+[node name="Unit Template" type="CharacterBody3D" node_paths=PackedStringArray("combatant", "mover", "faction_owner")]
 script = ExtResource("1_s0uje")
 combatant = NodePath("Combatant")
+mover = NodePath("Mover")
 faction_owner = NodePath("FactionOwner")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_k446r")
 
 [node name="GFX" type="Node3D" parent="."]
+
+[node name="Vinrax Female Secretary" parent="GFX" instance=ExtResource("2_etbrk")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Combatant" type="Node" parent="."]
 script = ExtResource("2_ufuje")
 
 [node name="FactionOwner" type="Node" parent="."]
 script = ExtResource("3_1uaee")
+
+[node name="Mover" type="Node" parent="."]
+script = ExtResource("5_msisb")
