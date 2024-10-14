@@ -7,6 +7,7 @@ var active_participant: Unit:
 		my_state_machine.active_participant = value
 		if active_participant != null:
 			# Tell everything that needs to know about the unit being changed
+			active_participant.new_turn_setup()
 			Eventbus.new_active_participant.emit(active_participant)
 			
 			camera_controller.set_target(active_participant)

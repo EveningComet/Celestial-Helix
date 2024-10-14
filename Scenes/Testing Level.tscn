@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c3wsvvokhejrf"]
+[gd_scene load_steps=24 format=3 uid="uid://c3wsvvokhejrf"]
 
 [ext_resource type="Texture2D" uid="uid://y071sw4p8450" path="res://Imported Assets/KenneyNL/Prototyping Textures/Dark/texture_01.png" id="1_to7jm"]
 [ext_resource type="Texture2D" uid="uid://bts48hhhmcwje" path="res://Imported Assets/KenneyNL/Prototyping Textures/Green/texture_02.png" id="2_7mpej"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://d00i5ca8e7utg" path="res://Scenes/UI/Battle/Battle HUD.tscn" id="10_w06yh"]
 [ext_resource type="Script" path="res://Scripts/Player/Locmotion/State/PLWaiting.gd" id="12_r67vc"]
 [ext_resource type="Script" path="res://Scripts/Player/Locmotion/State/PLActive.gd" id="13_3jysb"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerBattleController.gd" id="16_5v7gw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8iy3n"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -133,15 +134,18 @@ curr_action_points = 5
 [node name="Unit Template3" parent="." instance=ExtResource("5_0nhy1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.601848, -2)
 
-[node name="PlayerLocomotionController" type="Node" parent="." node_paths=PackedStringArray("camera_controller")]
+[node name="PlayerBattleController" type="Node" parent="."]
+script = ExtResource("16_5v7gw")
+
+[node name="PlayerLocomotionController" type="Node" parent="PlayerBattleController" node_paths=PackedStringArray("camera_controller")]
 script = ExtResource("10_bqfox")
-camera_controller = NodePath("../Camera Rig")
+camera_controller = NodePath("../../Camera Rig")
 initial_state = NodePath("PLWaiting")
 
-[node name="PLWaiting" type="Node" parent="PlayerLocomotionController"]
+[node name="PLWaiting" type="Node" parent="PlayerBattleController/PlayerLocomotionController"]
 script = ExtResource("12_r67vc")
 
-[node name="PLActive" type="Node" parent="PlayerLocomotionController"]
+[node name="PLActive" type="Node" parent="PlayerBattleController/PlayerLocomotionController"]
 script = ExtResource("13_3jysb")
 
 [node name="Battle HUD" parent="." instance=ExtResource("10_w06yh")]

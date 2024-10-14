@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 
 func apply_controller_rotation() -> void:
 	var axis_vector = Vector2.ZERO
-	axis_vector.y = Input.get_action_strength("look_left") - Input.get_action_strength("look_right")
+	axis_vector.y = Input.get_action_strength("look_right") - Input.get_action_strength("look_left")
 	axis_vector.x = Input.get_action_strength("look_up") - Input.get_action_strength("look_down")
 	if InputEventJoypadMotion:
 		# Handle the controller's x rotation
@@ -51,6 +51,7 @@ func apply_controller_rotation() -> void:
 func handle_move(delta: float) -> void:
 	global_position = lerp(global_position, target.global_position + offset, speed * delta)
 
+## Update the target this camera should be following.
 func set_target(new_target: Node3D) -> void:
 	if target != null:
 		remove_excluded_object(target)

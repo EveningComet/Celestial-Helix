@@ -31,3 +31,7 @@ script = ExtResource("3_1uaee")
 
 [node name="Mover" type="Node" parent="."]
 script = ExtResource("5_msisb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]

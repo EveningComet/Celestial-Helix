@@ -41,7 +41,6 @@ func _physics_process(delta: float) -> void:
 func move(delta: float) -> void:
 	_apply_acceleration(delta)
 	_apply_friction(delta)
-	handle_rotation(delta)
 	
 	target_velocity.y -= gravity * delta
 	
@@ -67,6 +66,17 @@ func handle_rotation(delta: float) -> void:
 			atan2(-input_dir.x, -input_dir.z),
 			rot_speed * delta
 		)
+
+## Used to make the character face the camera direction.
+func orient_to_face_camera_direction(camera: CameraController, delta: float) -> void:
+	var direction = (camera.global_transform.basis * Vector3.BACK).normalized()
+	var q_from = cb.transform.basis.get_rotation_quaternion()
+	var left_axis = Vector3.UP.cross(direction)
+	var rotation_basis = Basis(left_axis, Vector3.UP, direction).get_rotation_quaternion()
+	cb.basis = Basis(q_from.slerp(rotation_basis, delta * rot_speed))
+	
+	# Prevent weird stuff from happening
+	cb.transform.basis = cb.transform.basis.orthonormalized()
 
 func _apply_acceleration(delta: float) -> void:
 	if input_dir != Vector3.ZERO:
