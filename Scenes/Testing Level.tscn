@@ -117,7 +117,7 @@ script = ExtResource("7_h6n00")
 [node name="Camera Rig" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 2)
 shape = SubResource("SphereShape3D_ustwk")
-spring_length = 5.0
+spring_length = 4.0
 margin = 0.5
 script = ExtResource("5_3clpg")
 

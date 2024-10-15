@@ -25,6 +25,9 @@ func physics_update(delta: float) -> void:
 	var jump_released: bool = Input.is_action_just_released("jump")
 	active_participant.mover.set_input(input_dir, jump_pressed, jump_released)
 	active_participant.mover.orient_to_face_camera_direction(camera_controller, delta)
+	
+	# Keep track of how much the character has moved
+	active_participant.update_amount_moved()
 
 func _on_unit_turn_finished(unit: Unit) -> void:
 	my_state_machine.change_to_state("PLWaiting")

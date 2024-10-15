@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://d00i5ca8e7utg"]
+[gd_scene load_steps=3 format=3 uid="uid://d00i5ca8e7utg"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Battle/BattleHUD.gd" id="1_parf7"]
+[ext_resource type="Script" path="res://Scripts/UI/Battle/Player HUD/BattleHUD.gd" id="1_parf7"]
+[ext_resource type="PackedScene" uid="uid://b6y55kulnm4o7" path="res://Unit Move Amount Displayer.tscn" id="2_fy88a"]
 
-[node name="Battle HUD" type="CanvasLayer" node_paths=PackedStringArray("action_points_displayer_container", "action_points_value_displayer")]
+[node name="Battle HUD" type="CanvasLayer" node_paths=PackedStringArray("unit_move_amount_displayer", "action_points_displayer_container", "action_points_value_displayer")]
 script = ExtResource("1_parf7")
+unit_move_amount_displayer = NodePath("Control/Unit Move Amount Displayer")
 action_points_displayer_container = NodePath("Control/Action Points Displayer Container")
 action_points_value_displayer = NodePath("Control/Action Points Displayer Container/Value Label")
 
@@ -17,7 +19,6 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="Action Points Displayer Container" type="HBoxContainer" parent="Control"]
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -30,6 +31,7 @@ offset_right = 138.0
 offset_bottom = -140.0
 grow_horizontal = 2
 grow_vertical = 0
+alignment = 1
 
 [node name="Action Point Label" type="Label" parent="Control/Action Points Displayer Container"]
 custom_minimum_size = Vector2(100, 25)
@@ -47,3 +49,17 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 25
 text = "42"
 horizontal_alignment = 1
+
+[node name="Unit Move Amount Displayer" parent="Control" instance=ExtResource("2_fy88a")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 300.0
+offset_right = 100.0
+offset_bottom = 340.0
+grow_horizontal = 2
+grow_vertical = 2
