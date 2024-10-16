@@ -36,6 +36,8 @@ var curr_move_amount: float = 0.0
 @export var meters_per_ap: float = 10.0
 
 @export_category("Components")
+@export var skin_handler: SkinHandler
+
 ## Reference to the node that stores the character's stats, skills, and status
 ## effects.
 @export var combatant:     Combatant
@@ -48,7 +50,6 @@ func new_turn_setup() -> void:
 	curr_move_amount   = 0.0
 	curr_action_points += ap_on_new_turn
 
-## 
 func update_amount_moved() -> void:
 	# TODO: Figure out accounting for jumping/flying.
 	curr_move_amount += last_pos.distance_to(global_position)

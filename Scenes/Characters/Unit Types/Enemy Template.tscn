@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://bb528yh326vob"]
+
+[ext_resource type="Script" path="res://Scripts/Character/Unit.gd" id="1_uje4s"]
+[ext_resource type="PackedScene" uid="uid://d13cbb6dnvyd0" path="res://Scenes/Characters/Models/Scoppio Knight.tscn" id="2_4qthx"]
+[ext_resource type="Script" path="res://Scripts/Character/SkinHandler.gd" id="2_ruy4v"]
+[ext_resource type="Script" path="res://Scripts/Character/Combatant.gd" id="3_qyeve"]
+[ext_resource type="Script" path="res://Scripts/Character/FactionOwner.gd" id="4_1t7r7"]
+[ext_resource type="Script" path="res://Scripts/Character/Movement/Mover.gd" id="5_cxo24"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k446r"]
+
+[node name="Enemy Template" type="CharacterBody3D" node_paths=PackedStringArray("skin_handler", "combatant", "mover", "faction_owner")]
+script = ExtResource("1_uje4s")
+skin_handler = NodePath("GFX")
+combatant = NodePath("Combatant")
+mover = NodePath("Mover")
+faction_owner = NodePath("FactionOwner")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_k446r")
+
+[node name="GFX" type="Node3D" parent="."]
+script = ExtResource("2_ruy4v")
+
+[node name="Scoppio Knight" parent="GFX" instance=ExtResource("2_4qthx")]
+
+[node name="Combatant" type="Node" parent="."]
+script = ExtResource("3_qyeve")
+
+[node name="FactionOwner" type="Node" parent="."]
+script = ExtResource("4_1t7r7")
+faction = 1
+
+[node name="Mover" type="Node" parent="."]
+script = ExtResource("5_cxo24")

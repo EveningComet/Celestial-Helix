@@ -5,12 +5,12 @@
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/BattleController.gd" id="3_m7a3b"]
 [ext_resource type="Texture2D" uid="uid://lcmgy5ep1yjo" path="res://Imported Assets/KenneyNL/Prototyping Textures/Green/texture_01.png" id="3_yfk4s"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCInitialize.gd" id="4_ts7l7"]
-[ext_resource type="PackedScene" uid="uid://bftxxwlkeet3v" path="res://Scenes/Characters/Unit Template.tscn" id="5_0nhy1"]
+[ext_resource type="PackedScene" uid="uid://bftxxwlkeet3v" path="res://Scenes/Characters/Unit Types/Unit Template.tscn" id="5_0nhy1"]
 [ext_resource type="Script" path="res://Scripts/Player/CameraController.gd" id="5_3clpg"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCPlayer.gd" id="5_qmi0x"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCCPU.gd" id="6_ibspp"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCEnd.gd" id="7_h6n00"]
-[ext_resource type="PackedScene" uid="uid://bb528yh326vob" path="res://Scenes/Characters/Enemy Template.tscn" id="9_k366k"]
+[ext_resource type="PackedScene" uid="uid://bb528yh326vob" path="res://Scenes/Characters/Unit Types/Enemy Template.tscn" id="9_k366k"]
 [ext_resource type="Script" path="res://Scripts/Player/Locmotion/PlayerLocomotionController.gd" id="10_bqfox"]
 [ext_resource type="PackedScene" uid="uid://d00i5ca8e7utg" path="res://Scenes/UI/Battle/Battle HUD.tscn" id="10_w06yh"]
 [ext_resource type="Script" path="res://Scripts/Player/Locmotion/State/PLWaiting.gd" id="12_r67vc"]
@@ -126,7 +126,7 @@ script = ExtResource("5_3clpg")
 current = true
 
 [node name="Test Enemy" parent="." instance=ExtResource("9_k366k")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 3, -15)
+transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 0, 3, -15)
 
 [node name="Unit Template2" parent="." instance=ExtResource("5_0nhy1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.601848, -2)

@@ -1,15 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://bftxxwlkeet3v"]
+[gd_scene load_steps=8 format=3 uid="uid://bftxxwlkeet3v"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Unit.gd" id="1_s0uje"]
-[ext_resource type="PackedScene" uid="uid://b22rgxmign6cy" path="res://Imported Assets/Models/Vinrax/Vinrax Female Secretary.glb" id="2_etbrk"]
+[ext_resource type="Script" path="res://Scripts/Character/SkinHandler.gd" id="2_lhqxt"]
 [ext_resource type="Script" path="res://Scripts/Character/Combatant.gd" id="2_ufuje"]
+[ext_resource type="PackedScene" uid="uid://caad5b3n2ms0g" path="res://Scenes/Characters/Models/Female Secretary.tscn" id="2_vtk0i"]
 [ext_resource type="Script" path="res://Scripts/Character/FactionOwner.gd" id="3_1uaee"]
 [ext_resource type="Script" path="res://Scripts/Character/Movement/Mover.gd" id="5_msisb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k446r"]
 
-[node name="Unit Template" type="CharacterBody3D" node_paths=PackedStringArray("combatant", "mover", "faction_owner")]
+[node name="Unit Template" type="CharacterBody3D" node_paths=PackedStringArray("skin_handler", "combatant", "mover", "faction_owner")]
 script = ExtResource("1_s0uje")
+skin_handler = NodePath("GFX")
 combatant = NodePath("Combatant")
 mover = NodePath("Mover")
 faction_owner = NodePath("FactionOwner")
@@ -19,9 +21,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_k446r")
 
 [node name="GFX" type="Node3D" parent="."]
+script = ExtResource("2_lhqxt")
 
-[node name="Vinrax Female Secretary" parent="GFX" instance=ExtResource("2_etbrk")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+[node name="Female Secretary" parent="GFX" instance=ExtResource("2_vtk0i")]
 
 [node name="Combatant" type="Node" parent="."]
 script = ExtResource("2_ufuje")
@@ -31,7 +33,3 @@ script = ExtResource("3_1uaee")
 
 [node name="Mover" type="Node" parent="."]
 script = ExtResource("5_msisb")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
