@@ -4,9 +4,9 @@ class_name CameraController extends SpringArm3D
 ## How fast the camera moves.
 @export var speed: float = 10.0
 
-@export var offset: Vector3 = Vector3(0.0, 1.5, 0.0)
+@export var offset: Vector3 = Vector3(0.0, 2, 0.0)
 
-@export var target: Node3D = null
+var target: Node3D = null
 
 var mouse_sensitivity:      float = 0.1 # TODO: Clamp this between 0.1 and 1. Also, make this a global setting.
 var controller_sensitivity: float = 3.0 # TODO: Make this a global setting.

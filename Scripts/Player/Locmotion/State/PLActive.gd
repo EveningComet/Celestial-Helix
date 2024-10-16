@@ -3,7 +3,7 @@ class_name PLActive extends PLState
 
 var active_participant: Unit
 
-var input_dir: Vector3 = Vector3.ZERO
+var input_dir: Vector3
 
 func enter(msgs: Dictionary = {}) -> void:
 	match msgs:
@@ -21,9 +21,7 @@ func exit() -> void:
 
 func physics_update(delta: float) -> void:
 	get_input()
-	var jump_pressed:  bool = Input.is_action_just_pressed("jump")
-	var jump_released: bool = Input.is_action_just_released("jump")
-	active_participant.mover.set_input(input_dir, jump_pressed, jump_released)
+	active_participant.mover.set_input(input_dir, input_controller.jump_pressed, input_controller.jump_released)
 	active_participant.mover.orient_to_face_camera_direction(camera_controller, delta)
 	
 	# Keep track of how much the character has moved
@@ -33,9 +31,7 @@ func _on_unit_turn_finished(unit: Unit) -> void:
 	my_state_machine.change_to_state("PLWaiting")
 
 func get_input() -> void:
-	input_dir = Vector3.ZERO
-	input_dir.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	input_dir.z = Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
+	input_dir = input_controller.input_dir
 	
 	# Change the input based on where the camera is looking
 	var forward = camera_controller.basis.z

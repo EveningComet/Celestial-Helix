@@ -3,3 +3,6 @@ class_name PLState extends State
 
 var camera_controller: CameraController:
 	get: return my_state_machine.camera_controller
+
+var input_controller: PlayerInputController:
+	get: return my_state_machine.input_controller
