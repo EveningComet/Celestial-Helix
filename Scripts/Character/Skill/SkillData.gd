@@ -8,6 +8,7 @@ class_name SkillData extends Resource
 @export_category("Definitions")
 @export var base_sp_cost:    int  = 5
 @export var base_ap_cost:    int  = 1
+@export var base_cooldown:   int  = 0 ## In turns, how long must a character wait before activating this again?
 @export var is_passive:      bool = false
 @export var num_activations: int  = 1
 
