@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d00i5ca8e7utg"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Battle/Player HUD/BattleHUD.gd" id="1_parf7"]
-[ext_resource type="PackedScene" uid="uid://b6y55kulnm4o7" path="res://Unit Move Amount Displayer.tscn" id="2_fy88a"]
+[ext_resource type="PackedScene" path="res://Unit Move Amount Displayer.tscn" id="2_fy88a"]
 [ext_resource type="Texture2D" uid="uid://6duppkp2dsks" path="res://Imported Assets/KenneyNL/Crosshair Pack/crosshair013.png" id="3_ynnq6"]
 
 [node name="Battle HUD" type="CanvasLayer" node_paths=PackedStringArray("unit_move_amount_displayer", "action_points_displayer_container", "action_points_value_displayer")]
