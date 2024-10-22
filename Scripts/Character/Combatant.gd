@@ -9,4 +9,4 @@ signal stat_changed(com: Combatant)
 @export var stats: Stats = Stats.new(self)
 
 ## The component that stores a character's skills.
-@export var skill_holder: SkillHolder
+@export var skill_holder: SkillHolder = SkillHolder.new(self)

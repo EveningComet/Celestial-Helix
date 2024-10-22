@@ -27,7 +27,7 @@ signal ap_changed(unit: Unit)
 @export var max_action_points: int = 10
 
 ## Used to keep track of where a character was for changing action points.
-@export var last_pos: Vector3 = Vector3.ZERO
+var last_pos: Vector3 = Vector3.ZERO
 
 ## Keeps track of how much a unit has moved on their current turn.
 var curr_move_amount: float = 0.0

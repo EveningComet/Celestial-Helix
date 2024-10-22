@@ -2,9 +2,10 @@
 class_name BattleHUD extends CanvasLayer
 
 @export var unit_move_amount_displayer: UnitMoveAmountDisplayer
-
 @export var action_points_displayer_container: Container
 @export var action_points_value_displayer:     Label
+
+@export var skill_hotbar: SkillHotbar
 
 ## The unit currently being kept track of.
 var active_participant: Unit = null
@@ -28,6 +29,7 @@ func _on_new_active_participant(unit: Unit) -> void:
 	if unit.faction_owner.is_player_owned() == true:
 		active_participant.ap_changed.connect( _on_ap_changed )
 		action_points_value_displayer.set_text( str(active_participant.curr_action_points) )
+		skill_hotbar.update_unit(active_participant)
 		show()
 		set_physics_process( true )
 	else:

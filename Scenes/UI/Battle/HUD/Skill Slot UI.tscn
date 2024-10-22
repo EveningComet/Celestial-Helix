@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6gq3defyopxt"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Battle/Player HUD/SkillSlotUI.gd" id="1_3t11r"]
+[ext_resource type="Texture2D" uid="uid://cwq5w7gnjsata" path="res://Imported Assets/UI/Free Walock Skill Icons/50.png" id="2_ljut5"]
+
+[node name="Skill Slot UI" type="Button" node_paths=PackedStringArray("display_icon")]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_3t11r")
+display_icon = NodePath("MarginContainer/Display Icon")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Display Icon" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_ljut5")
+expand_mode = 1
+stretch_mode = 5

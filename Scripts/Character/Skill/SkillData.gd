@@ -4,6 +4,7 @@ class_name SkillData extends Resource
 @export_category("Base Info")
 @export var localization_name:                  String = "New Skill"
 @export_multiline var localization_description: String = "New description."
+@export var display_icon: Texture2D
 
 @export_category("Definitions")
 @export var base_sp_cost:    int  = 5

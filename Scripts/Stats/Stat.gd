@@ -1,6 +1,4 @@
-###
-# Class for a stat belonging to a character.
-###
+## Class for a stat belonging to a character.
 class_name Stat
 
 ## Base value before any calculations
@@ -10,7 +8,7 @@ var base_value: float = 0
 var modifiers: Array[StatModifier] = []
 
 ## Initialize the stat.
-func _init(init_value: float):
+func _init(init_value: float = 0.0):
 	base_value    = init_value
 
 ## Raise the base value by the passed amount. Usually called when leveling up.

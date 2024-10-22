@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjiuuvpica1ix"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Battle/Player HUD/SkillHotbar.gd" id="1_m2h4j"]
+[ext_resource type="PackedScene" uid="uid://c6gq3defyopxt" path="res://Scenes/UI/Battle/HUD/Skill Slot UI.tscn" id="2_myr76"]
+
+[node name="Skill Hotbar" type="PanelContainer" node_paths=PackedStringArray("button_container")]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_m2h4j")
+button_container = NodePath("MarginContainer/Buttons Container")
+skill_slot_prefab = ExtResource("2_myr76")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Buttons Container" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1

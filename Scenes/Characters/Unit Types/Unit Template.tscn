@@ -1,13 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://bftxxwlkeet3v"]
+[gd_scene load_steps=13 format=3 uid="uid://bftxxwlkeet3v"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Unit.gd" id="1_s0uje"]
 [ext_resource type="Script" path="res://Scripts/Character/SkinHandler.gd" id="2_lhqxt"]
 [ext_resource type="Script" path="res://Scripts/Character/Combatant.gd" id="2_ufuje"]
 [ext_resource type="PackedScene" uid="uid://caad5b3n2ms0g" path="res://Scenes/Characters/Models/Female Secretary.tscn" id="2_vtk0i"]
 [ext_resource type="Script" path="res://Scripts/Character/FactionOwner.gd" id="3_1uaee"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillInstance.gd" id="5_fisun"]
 [ext_resource type="Script" path="res://Scripts/Character/Movement/Mover.gd" id="5_msisb"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillHolder.gd" id="6_n7702"]
+[ext_resource type="Resource" uid="uid://boh68o7oakd7c" path="res://Game Data/Skills/Blast.tres" id="6_xj2hl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k446r"]
+
+[sub_resource type="Resource" id="Resource_l33is"]
+script = ExtResource("5_fisun")
+skill = ExtResource("6_xj2hl")
+
+[sub_resource type="Resource" id="Resource_3w7ct"]
+script = ExtResource("6_n7702")
+_skills = Array[ExtResource("5_fisun")]([SubResource("Resource_l33is")])
 
 [node name="Unit Template" type="CharacterBody3D" node_paths=PackedStringArray("skin_handler", "combatant", "mover", "faction_owner")]
 script = ExtResource("1_s0uje")
@@ -27,6 +38,7 @@ script = ExtResource("2_lhqxt")
 
 [node name="Combatant" type="Node" parent="."]
 script = ExtResource("2_ufuje")
+skill_holder = SubResource("Resource_3w7ct")
 
 [node name="FactionOwner" type="Node" parent="."]
 script = ExtResource("3_1uaee")

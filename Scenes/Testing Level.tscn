@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCEnd.gd" id="7_h6n00"]
 [ext_resource type="PackedScene" uid="uid://bb528yh326vob" path="res://Scenes/Characters/Unit Types/Enemy Template.tscn" id="9_k366k"]
 [ext_resource type="Script" path="res://Scripts/Player/Locmotion/PlayerLocomotionController.gd" id="10_bqfox"]
-[ext_resource type="PackedScene" uid="uid://d00i5ca8e7utg" path="res://Scenes/UI/Battle/Battle HUD.tscn" id="10_w06yh"]
+[ext_resource type="PackedScene" uid="uid://d00i5ca8e7utg" path="res://Scenes/UI/Battle/HUD/Battle HUD.tscn" id="10_w06yh"]
 [ext_resource type="Script" path="res://Scripts/Player/Locmotion/State/PLWaiting.gd" id="12_r67vc"]
 [ext_resource type="Script" path="res://Scripts/Player/Locmotion/State/PLActive.gd" id="13_3jysb"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerBattleController.gd" id="16_5v7gw"]
