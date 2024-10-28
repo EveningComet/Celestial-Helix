@@ -15,3 +15,7 @@ func tick() -> void:
 
 func is_cooldown_finished() -> bool:
 	return _turns_left_until_usable_again == 0
+
+## Return the final ap cost for using this skill.
+func get_ap_cost() -> int:
+	return skill.base_ap_cost

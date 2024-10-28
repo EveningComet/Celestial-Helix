@@ -135,8 +135,10 @@ curr_action_points = 5
 [node name="Unit Template3" parent="." instance=ExtResource("5_0nhy1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.601848, -2)
 
-[node name="PlayerBattleController" type="Node" parent="."]
+[node name="PlayerBattleController" type="Node" parent="." node_paths=PackedStringArray("input_controller", "locomotion_controller")]
 script = ExtResource("16_5v7gw")
+input_controller = NodePath("PlayerInputController")
+locomotion_controller = NodePath("PlayerLocomotionController")
 
 [node name="PlayerInputController" type="Node" parent="PlayerBattleController"]
 script = ExtResource("16_s08vf")

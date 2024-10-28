@@ -8,6 +8,7 @@ signal finished_turn(unit: Unit)
 signal ap_changed(unit: Unit)
 
 @export_category("Action Points")
+# TODO: Make action points a separate component?
 ## The action points the unit currently has.
 @export var curr_action_points: int = 3:
 	get: return curr_action_points
@@ -37,12 +38,13 @@ var curr_move_amount: float = 0.0
 
 @export_category("Components")
 @export var skin_handler: SkinHandler
-
-## Reference to the node that stores the character's stats, skills, and status
-## effects.
 @export var combatant:     Combatant
+@export var skill_handler: SkillHandler
 @export var mover:         Mover
 @export var faction_owner: FactionOwner
+
+func _ready() -> void:
+	skill_handler.skill_executed.connect( _on_skill_executed )
 
 ## Perform a variety of cleanup and setup for this character when their turn starts.
 func new_turn_setup() -> void:
@@ -57,3 +59,6 @@ func update_amount_moved() -> void:
 	if curr_move_amount >= meters_per_ap:
 		curr_action_points -= 1
 		curr_move_amount   = 0.0
+
+func _on_skill_executed(si: SkillInstance) -> void:
+	curr_action_points -= si.get_ap_cost()
