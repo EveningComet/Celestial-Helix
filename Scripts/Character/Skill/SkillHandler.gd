@@ -1,6 +1,7 @@
 ## Stores the skills for a character.
 class_name SkillHandler extends Node
 
+## Fired when a skill is executed.
 signal skill_executed(skill_instance: SkillInstance)
 
 ## The stored character skills.

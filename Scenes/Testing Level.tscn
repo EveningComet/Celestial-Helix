@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c3wsvvokhejrf"]
+[gd_scene load_steps=26 format=3 uid="uid://c3wsvvokhejrf"]
 
 [ext_resource type="Texture2D" uid="uid://y071sw4p8450" path="res://Imported Assets/KenneyNL/Prototyping Textures/Dark/texture_01.png" id="1_to7jm"]
 [ext_resource type="Texture2D" uid="uid://bts48hhhmcwje" path="res://Imported Assets/KenneyNL/Prototyping Textures/Green/texture_02.png" id="2_7mpej"]
@@ -11,11 +11,12 @@
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCCPU.gd" id="6_ibspp"]
 [ext_resource type="Script" path="res://Scripts/Battle/Battle Controller/States/BCEnd.gd" id="7_h6n00"]
 [ext_resource type="PackedScene" uid="uid://bb528yh326vob" path="res://Scenes/Characters/Unit Types/Enemy Template.tscn" id="9_k366k"]
-[ext_resource type="Script" path="res://Scripts/Player/Locmotion/PlayerLocomotionController.gd" id="10_bqfox"]
+[ext_resource type="Script" path="res://Scripts/Player/PBC/PlayerLocomotionController.gd" id="10_bqfox"]
 [ext_resource type="PackedScene" uid="uid://d00i5ca8e7utg" path="res://Scenes/UI/Battle/HUD/Battle HUD.tscn" id="10_w06yh"]
-[ext_resource type="Script" path="res://Scripts/Player/Locmotion/State/PLWaiting.gd" id="12_r67vc"]
-[ext_resource type="Script" path="res://Scripts/Player/Locmotion/State/PLActive.gd" id="13_3jysb"]
-[ext_resource type="Script" path="res://Scripts/Player/PlayerBattleController.gd" id="16_5v7gw"]
+[ext_resource type="Script" path="res://Scripts/Player/PBC/States/PBWaiting.gd" id="14_snwm5"]
+[ext_resource type="Script" path="res://Scripts/Player/PBC/States/PBActive.gd" id="15_7svgu"]
+[ext_resource type="Script" path="res://Scripts/Player/PBC/PlayerBattleController.gd" id="16_5v7gw"]
+[ext_resource type="Script" path="res://Scripts/Player/PBC/States/PBSkillTargeting.gd" id="16_n67v3"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerInputController.gd" id="16_s08vf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8iy3n"]
@@ -54,44 +55,44 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_i140l")
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+[node name="Environment" type="CSGCombiner3D" parent="."]
 use_collision = true
 
-[node name="Ground" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="Ground" type="CSGBox3D" parent="Environment"]
 size = Vector3(500, 1, 500)
 material = SubResource("StandardMaterial3D_ls2q1")
 
-[node name="Block" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="Block" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -6)
 size = Vector3(3, 1, 3)
 material = SubResource("StandardMaterial3D_im4l4")
 
-[node name="Block6" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="Block6" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.5, -3)
 size = Vector3(3, 1, 3)
 material = SubResource("StandardMaterial3D_im4l4")
 
-[node name="Block2" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="Block2" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -9)
 size = Vector3(3, 2, 3)
 material = SubResource("StandardMaterial3D_im4l4")
 
-[node name="Block3" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="Block3" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -12)
 size = Vector3(3, 3, 3)
 material = SubResource("StandardMaterial3D_im4l4")
 
-[node name="Block4" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="Block4" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -15)
 size = Vector3(3, 4, 3)
 material = SubResource("StandardMaterial3D_im4l4")
 
-[node name="Block5" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="Block5" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1, -15)
 size = Vector3(10, 4, 3)
 material = SubResource("StandardMaterial3D_im4l4")
 
-[node name="Ramp" type="CSGPolygon3D" parent="CSGCombiner3D"]
+[node name="Ramp" type="CSGPolygon3D" parent="Environment"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.38461, 0.507692, -16.5)
 polygon = PackedVector2Array(0, 0, 0, 2.5, 10, 0)
 depth = 3.0
@@ -135,10 +136,10 @@ curr_action_points = 5
 [node name="Unit Template3" parent="." instance=ExtResource("5_0nhy1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.601848, -2)
 
-[node name="PlayerBattleController" type="Node" parent="." node_paths=PackedStringArray("input_controller", "locomotion_controller")]
+[node name="PlayerBattleController" type="Node" parent="." node_paths=PackedStringArray("camera_controller")]
 script = ExtResource("16_5v7gw")
-input_controller = NodePath("PlayerInputController")
-locomotion_controller = NodePath("PlayerLocomotionController")
+camera_controller = NodePath("../Camera Rig")
+initial_state = NodePath("States/PBWaiting")
 
 [node name="PlayerInputController" type="Node" parent="PlayerBattleController"]
 script = ExtResource("16_s08vf")
@@ -147,12 +148,16 @@ script = ExtResource("16_s08vf")
 script = ExtResource("10_bqfox")
 camera_controller = NodePath("../../Camera Rig")
 input_controller = NodePath("../PlayerInputController")
-initial_state = NodePath("PLWaiting")
 
-[node name="PLWaiting" type="Node" parent="PlayerBattleController/PlayerLocomotionController"]
-script = ExtResource("12_r67vc")
+[node name="States" type="Node" parent="PlayerBattleController"]
 
-[node name="PLActive" type="Node" parent="PlayerBattleController/PlayerLocomotionController"]
-script = ExtResource("13_3jysb")
+[node name="PBWaiting" type="Node" parent="PlayerBattleController/States"]
+script = ExtResource("14_snwm5")
+
+[node name="PBActive" type="Node" parent="PlayerBattleController/States"]
+script = ExtResource("15_7svgu")
+
+[node name="PBSkillTargeting" type="Node" parent="PlayerBattleController/States"]
+script = ExtResource("16_n67v3")
 
 [node name="Battle HUD" parent="." instance=ExtResource("10_w06yh")]

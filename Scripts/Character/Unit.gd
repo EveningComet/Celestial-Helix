@@ -37,11 +37,11 @@ var curr_move_amount: float = 0.0
 @export var meters_per_ap: float = 10.0
 
 @export_category("Components")
-@export var skin_handler: SkinHandler
-@export var combatant:     Combatant
-@export var skill_handler: SkillHandler
-@export var mover:         Mover
-@export var faction_owner: FactionOwner
+@export var skin_handler:  SkinHandler
+@onready var combatant:     Combatant    = $Combatant
+@onready var skill_handler: SkillHandler = $SkillHandler
+@onready var mover:         Mover        = $Mover
+@onready var faction_owner: FactionOwner = $FactionOwner
 
 func _ready() -> void:
 	skill_handler.skill_executed.connect( _on_skill_executed )
@@ -60,5 +60,6 @@ func update_amount_moved() -> void:
 		curr_action_points -= 1
 		curr_move_amount   = 0.0
 
+## Things that should be done when this character has performed the passed skill.
 func _on_skill_executed(si: SkillInstance) -> void:
 	curr_action_points -= si.get_ap_cost()

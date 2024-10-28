@@ -12,9 +12,7 @@ extends StateMachine
 var turn_queue: Array[Unit] = []
 
 ## The character that is currently having their turn performed.
-var active_participant: Unit:
-	get: return active_participant
-	set(value): active_participant = value
+var active_participant: Unit
 
 func get_participants() -> Array[Unit]:
 	return participants

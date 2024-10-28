@@ -16,13 +16,9 @@
 script = ExtResource("5_fisun")
 skill = ExtResource("6_xj2hl")
 
-[node name="Unit Template" type="CharacterBody3D" node_paths=PackedStringArray("skin_handler", "combatant", "skill_handler", "mover", "faction_owner")]
+[node name="Unit Template" type="CharacterBody3D" node_paths=PackedStringArray("skin_handler")]
 script = ExtResource("1_s0uje")
 skin_handler = NodePath("GFX")
-combatant = NodePath("Combatant")
-skill_handler = NodePath("SkillHandler")
-mover = NodePath("Mover")
-faction_owner = NodePath("FactionOwner")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
