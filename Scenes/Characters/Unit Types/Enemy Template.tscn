@@ -12,16 +12,16 @@
 
 [node name="Enemy Template" type="CharacterBody3D" node_paths=PackedStringArray("skin_handler")]
 script = ExtResource("1_uje4s")
-skin_handler = NodePath("GFX")
+skin_handler = NodePath("SkinHandler")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_k446r")
 
-[node name="GFX" type="Node3D" parent="."]
+[node name="SkinHandler" type="Node3D" parent="."]
 script = ExtResource("2_ruy4v")
 
-[node name="Scoppio Knight" parent="GFX" instance=ExtResource("2_4qthx")]
+[node name="Scoppio Knight" parent="SkinHandler" instance=ExtResource("2_4qthx")]
 
 [node name="Combatant" type="Node" parent="."]
 script = ExtResource("3_qyeve")

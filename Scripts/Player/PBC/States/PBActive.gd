@@ -22,7 +22,8 @@ func exit() -> void:
 func physics_update(delta: float) -> void:
 	_get_input()
 	_curr_unit.mover.set_input(_input_dir, input_controller.jump_pressed, input_controller.jump_released)
-	_curr_unit.mover.orient_to_face_camera_direction(camera_controller, delta)
+	var camera_dir = (camera_controller.global_transform.basis * Vector3.BACK).normalized()
+	_curr_unit.mover.orient_to_direction(camera_dir, delta)
 	
 	# Keep track of how much the character has moved
 	_curr_unit.update_amount_moved()
@@ -33,7 +34,7 @@ func _get_input() -> void:
 	# Change the input based on where the camera is looking
 	var forward = camera_controller.basis.z
 	var right   = camera_controller.basis.x
-	_input_dir   = forward * _input_dir.z + right * _input_dir.x
+	_input_dir  = forward * _input_dir.z + right * _input_dir.x
 	
 	# Normalize the vector and allow for smooth controller input
 	_input_dir = _input_dir.normalized() if _input_dir.length() > 1 else _input_dir

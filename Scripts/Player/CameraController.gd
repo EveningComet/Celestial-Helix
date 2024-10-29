@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 func apply_controller_rotation() -> void:
 	var axis_vector = Vector2.ZERO
 	axis_vector.y = Input.get_action_strength("look_right") - Input.get_action_strength("look_left")
-	axis_vector.x = Input.get_action_strength("look_up") - Input.get_action_strength("look_down")
+	axis_vector.x = Input.get_action_strength("look_down") - Input.get_action_strength("look_up")
 	if InputEventJoypadMotion:
 		# Handle the controller's x rotation
 		rotation_degrees.x -= axis_vector.x * controller_sensitivity

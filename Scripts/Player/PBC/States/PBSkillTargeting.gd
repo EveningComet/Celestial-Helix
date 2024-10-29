@@ -22,8 +22,9 @@ func exit() -> void:
 	_curr_unit     = null
 
 func physics_update(delta: float) -> void:
-	_curr_unit.mover.orient_to_face_camera_direction(
-		camera_controller, delta
+	var camera_dir = (camera_controller.global_transform.basis * Vector3.BACK).normalized()
+	_curr_unit.mover.orient_to_direction(
+		camera_dir, delta
 	)
 
 ## Execute the skill when this method is called.
