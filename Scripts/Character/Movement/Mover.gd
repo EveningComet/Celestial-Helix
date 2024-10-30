@@ -46,12 +46,15 @@ func _physics_process(delta: float) -> void:
 func _handle_animations(delta: float) -> void:
 	
 	if _cb.is_on_floor() == true:
-	
+		skin_handler.animation_tree["parameters/locomotion/playback"].travel("movement")
 		var modified_dir = _target_velocity * _cb.transform.basis
 		skin_handler.animation_tree.set(
 			"parameters/locomotion/movement/blend_position",
 			Vector2(modified_dir.x, -modified_dir.z) / move_speed
 		)
+	
+	if _cb.is_on_floor() == false:
+		skin_handler.animation_tree["parameters/locomotion/playback"].travel("falling")
 
 func _move(delta: float) -> void:
 	_apply_acceleration(delta)
