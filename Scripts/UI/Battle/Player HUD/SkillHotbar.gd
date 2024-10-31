@@ -4,8 +4,8 @@ class_name SkillHotbar extends PanelContainer
 ## How many buttons should be displayed at a minimum?
 @export var minimum_skills_to_display: int = 8
 
-## The node housing the buttons.
-@export var button_container: Container
+## The node housing the slots.
+@export var slot_container: Container
 
 ## Template for the skill button.
 @export var skill_slot_prefab: PackedScene
@@ -37,10 +37,10 @@ func _update_hotbar(skill_handler: SkillHandler) -> void:
 			if _may_use_skill(skill_instance) == true:
 				skill_slot.disabled = false
 			
-		button_container.add_child(skill_slot)
+		slot_container.add_child(skill_slot)
 
 func _clear_buttons() -> void:
-	for c in button_container.get_children():
+	for c in slot_container.get_children():
 		c.queue_free()
 
 ## Is the current unit able to use the skill?
