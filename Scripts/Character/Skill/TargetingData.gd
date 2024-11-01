@@ -12,7 +12,7 @@ var origin: Vector3 = Vector3.ZERO
 var direction: Vector3 = Vector3.ZERO
 # TODO: Is direction redundant with target location?
 
-## Some skills will need to kcamera_controllernow the final destination, such as teleports.
+## Some skills will need to know the final destination, such as teleports.
 var target_location: Vector3 = Vector3.ZERO
 
 ## The things that will have stuff done to them.
