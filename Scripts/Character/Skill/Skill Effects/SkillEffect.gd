@@ -7,6 +7,9 @@ class_name SkillEffect extends Resource
 ## What stat does this use? Used as an enum to allow for 
 @export var stat_used: StatHelper.StatTypes = StatHelper.StatTypes.PhysicalPower
 
+func execute(targeting_data: TargetingData) -> void:
+	pass
+
 ## Get the power output using a character's stats.
 func get_power(activator: Stats):
 	match stat_used:

@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://dajedgneqcrm7"]
+
+[ext_resource type="Script" path="res://Scripts/Character/FactionOwner.gd" id="1_6t2y2"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/Projectile.gd" id="1_g6hh8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bp2ap"]
+
+[sub_resource type="Curve" id="Curve_dx3fb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_csi3r"]
+curve = SubResource("Curve_dx3fb")
+
+[sub_resource type="Curve" id="Curve_uxmem"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2y8bl"]
+curve = SubResource("Curve_uxmem")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cl3fo"]
+emission_shape = 1
+emission_sphere_radius = 0.5
+direction = Vector3(0, 0, 1)
+initial_velocity_min = 1.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 9.8)
+scale_curve = SubResource("CurveTexture_2y8bl")
+alpha_curve = SubResource("CurveTexture_csi3r")
+
+[sub_resource type="SphereMesh" id="SphereMesh_0rnrt"]
+radius = 0.1
+height = 0.2
+
+[node name="Projectile" type="Area3D" node_paths=PackedStringArray("faction_owner")]
+script = ExtResource("1_g6hh8")
+faction_owner = NodePath("FactionOwner")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_bp2ap")
+
+[node name="FactionOwner" type="Node" parent="."]
+script = ExtResource("1_6t2y2")
+
+[node name="GFX" type="Node3D" parent="."]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="GFX"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_cl3fo")
+draw_pass_1 = SubResource("SphereMesh_0rnrt")

@@ -1,10 +1,10 @@
 ## Defines a state that a player can be in during a battle.
 class_name PBState extends State
 
-var camera_controller: CameraController:
+var _camera_controller: CameraController:
 	get: return my_state_machine.camera_controller
 
-var input_controller: PlayerInputController:
+var _input_controller: PlayerInputController:
 	get: return my_state_machine.input_controller
 
 var _curr_unit: Unit = null

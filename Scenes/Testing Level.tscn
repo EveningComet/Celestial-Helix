@@ -126,6 +126,9 @@ script = ExtResource("5_3clpg")
 [node name="Camera3D" type="Camera3D" parent="Camera Rig"]
 current = true
 
+[node name="Aimcast" type="RayCast3D" parent="Camera Rig/Camera3D"]
+target_position = Vector3(0, 0, -1000)
+
 [node name="Test Enemy" parent="." instance=ExtResource("9_k366k")]
 transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 0, 3, -15)
 

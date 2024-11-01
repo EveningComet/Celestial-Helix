@@ -12,24 +12,31 @@ func enter(msgs: Dictionary = {}) -> void:
 	
 	# TODO: Activate things such as target highlighters and so on.
 	
-	input_controller.use_skill_index.connect( _on_skill_usage_confirmed )
-	input_controller.cancel_skill_usage.connect( _on_skill_targeting_canceled )
+	_input_controller.use_skill_index.connect( _on_skill_usage_confirmed )
+	_input_controller.cancel_skill_usage.connect( _on_skill_targeting_canceled )
 
 func exit() -> void:
-	input_controller.use_skill_index.disconnect( _on_skill_usage_confirmed )
-	input_controller.cancel_skill_usage.disconnect( _on_skill_targeting_canceled )
+	_input_controller.use_skill_index.disconnect( _on_skill_usage_confirmed )
+	_input_controller.cancel_skill_usage.disconnect( _on_skill_targeting_canceled )
 	_desired_skill = null
 	_curr_unit     = null
 
 func physics_update(delta: float) -> void:
-	var camera_dir = (camera_controller.global_transform.basis * Vector3.BACK).normalized()
+	var camera_dir = (_camera_controller.global_transform.basis * Vector3.BACK).normalized()
 	_curr_unit.mover.orient_to_direction(
 		camera_dir, delta
 	)
 
 ## Execute the skill when this method is called.
 func _on_skill_usage_confirmed(index: int) -> void:
-	_curr_unit.skill_handler.execute_skill(_desired_skill)
+	# Create the targeting data and get the needed information
+	var targeting_data: TargetingData = TargetingData.new()
+	targeting_data.activator = _curr_unit
+	targeting_data.origin    = _curr_unit.global_position + Vector3.UP
+	targeting_data.direction = (_camera_controller.get_aim_target() - targeting_data.origin).normalized()
+	
+	# Finally, execute the skill
+	_curr_unit.skill_handler.execute_skill(_desired_skill, targeting_data)
 	if _curr_unit.curr_action_points > 0:
 		my_state_machine.change_to_state("States/PBActive", {"unit" = _curr_unit})
 	else:

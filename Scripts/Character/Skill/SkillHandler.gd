@@ -10,13 +10,14 @@ signal skill_executed(skill_instance: SkillInstance)
 @onready var combatant: Combatant = get_parent().get_node("Combatant")
 
 ## Attempt to use a skill at the passed index.
-func use_skill_at_index(index: int) -> void:
+func use_skill_at_index(index: int, targeting_data: TargetingData) -> void:
 	var si = get_skill_at_index(index)
 	if si != null:
-		execute_skill(_skills[index])
+		execute_skill(_skills[index], targeting_data)
 
 ## Fire the skill.
-func execute_skill(si: SkillInstance) -> void:
+func execute_skill(si: SkillInstance, targeting_data: TargetingData) -> void:
+	si.skill.execute(targeting_data)
 	skill_executed.emit(si)
 
 func get_skill_at_index(index: int) -> SkillInstance:
