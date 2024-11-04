@@ -15,10 +15,12 @@ func use_skill_at_index(index: int, targeting_data: TargetingData) -> void:
 	if si != null:
 		execute_skill(_skills[index], targeting_data)
 
-## Fire the skill.
+## Fire the skill, wait for it to finish, and then tell everything that needs to know
+## it finished executing.
 func execute_skill(si: SkillInstance, targeting_data: TargetingData) -> void:
 	si.skill.execute(targeting_data)
-	skill_executed.emit(si)
+	await si.skill.skill_executed
+	skill_executed.emit( si )
 
 func get_skill_at_index(index: int) -> SkillInstance:
 	return _skills[index] if index <= _skills.size() - 1 else null 

@@ -1,6 +1,9 @@
 ## A collection of data for a skill.
 class_name SkillData extends Resource
 
+## Fired when a skill has finished going through all its effects.
+signal skill_executed
+
 @export_category("Base Info")
 @export var localization_name:                  String = "New Skill"
 @export_multiline var localization_description: String = "New description."
@@ -17,5 +20,10 @@ class_name SkillData extends Resource
 @export var effects: Array[SkillEffect] = []
 
 func execute(targeting_data: TargetingData) -> void:
+	# Loop through the effects and wait for them to finish
 	for e: SkillEffect in effects:
 		e.execute(targeting_data)
+		await e.effect_finished
+	
+	# Everything is done. Return control
+	skill_executed.emit()

@@ -60,6 +60,6 @@ func update_amount_moved() -> void:
 		curr_action_points -= 1
 		curr_move_amount   = 0.0
 
-## Things that should be done when this character has performed the passed skill.
+## This is what's done when the skill finally finished.
 func _on_skill_executed(si: SkillInstance) -> void:
 	curr_action_points -= si.get_ap_cost()

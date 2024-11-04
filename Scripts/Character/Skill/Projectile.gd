@@ -1,6 +1,8 @@
 ## An object that can be fired.
 class_name Projectile extends Area3D
 
+signal projectile_despawned(p: Projectile)
+
 enum ApplicationTypes
 {
 	Damage,
@@ -33,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	
 	_curr_lifetime += delta
 	if _curr_lifetime > max_lifetime:
-		queue_free()
+		_on_destroy()
 
 func initialize(direction: Vector3, f_owner: FactionOwner) -> void:
 	_velocity = direction
@@ -61,4 +63,8 @@ func _on_body_entered(body) -> void:
 				as_unit.combatant.stats.heal(_power)
 	if OS.is_debug_build() == true:
 		print("Projectile :: %s has collided with %s." % [name, body.name])
+	_on_destroy()
+
+func _on_destroy() -> void:
+	projectile_despawned.emit(self)
 	queue_free()

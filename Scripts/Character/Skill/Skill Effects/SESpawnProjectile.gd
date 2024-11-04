@@ -5,7 +5,6 @@ class_name SESpawnProjectile extends SkillEffect
 @export var projectile_prefab: PackedScene
 
 func execute(targeting_data: TargetingData) -> void:
-	print("SESpawnProjectile :: Fired.")
 	var projectile: Projectile = projectile_prefab.instantiate()
 	projectile.initialize(
 		targeting_data.direction,
@@ -13,3 +12,5 @@ func execute(targeting_data: TargetingData) -> void:
 	)
 	targeting_data.activator.owner.add_child(projectile)
 	projectile.global_position = targeting_data.origin
+	await projectile.projectile_despawned
+	effect_finished.emit()
