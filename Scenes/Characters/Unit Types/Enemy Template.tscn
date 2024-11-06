@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bb528yh326vob"]
+[gd_scene load_steps=14 format=3 uid="uid://bb528yh326vob"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Unit.gd" id="1_uje4s"]
 [ext_resource type="PackedScene" uid="uid://d13cbb6dnvyd0" path="res://Scenes/Characters/Models/Scoppio Knight.tscn" id="2_4qthx"]
@@ -7,8 +7,16 @@
 [ext_resource type="Script" path="res://Scripts/Character/FactionOwner.gd" id="4_1t7r7"]
 [ext_resource type="Script" path="res://Scripts/Character/Movement/Mover.gd" id="5_cxo24"]
 [ext_resource type="Script" path="res://Scripts/Character/Skill/SkillHandler.gd" id="6_p3syl"]
+[ext_resource type="Script" path="res://Scripts/Character/Skill/SkillInstance.gd" id="8_8tis7"]
+[ext_resource type="Script" path="res://Scripts/Battle/AI/EnemyBrain.gd" id="8_vl3ja"]
+[ext_resource type="Resource" uid="uid://boh68o7oakd7c" path="res://Game Data/Skills/Blast.tres" id="9_aupvu"]
+[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="9_q4p8a"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k446r"]
+
+[sub_resource type="Resource" id="Resource_y71f7"]
+script = ExtResource("8_8tis7")
+skill = ExtResource("9_aupvu")
 
 [node name="Enemy Template" type="CharacterBody3D" node_paths=PackedStringArray("skin_handler")]
 script = ExtResource("1_uje4s")
@@ -35,3 +43,8 @@ script = ExtResource("5_cxo24")
 
 [node name="SkillHandler" type="Node" parent="."]
 script = ExtResource("6_p3syl")
+_skills = Array[ExtResource("8_8tis7")]([SubResource("Resource_y71f7")])
+
+[node name="EnemyBrain" type="Node" parent="."]
+script = ExtResource("8_vl3ja")
+behaviors = Array[ExtResource("9_q4p8a")]([null])

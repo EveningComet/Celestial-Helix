@@ -17,10 +17,10 @@ damage_type = 0
 bonus_damage_scale_on_debuffs_present = 0.0
 attacker_heal_percentage = 0.0
 
-[sub_resource type="Resource" id="Resource_ncq3r"]
+[sub_resource type="Resource" id="Resource_00lpx"]
 script = ExtResource("6_dh4hv")
 
-[sub_resource type="Resource" id="Resource_rqb67"]
+[sub_resource type="Resource" id="Resource_tt7ql"]
 script = ExtResource("6_sxe0l")
 
 [resource]
@@ -28,8 +28,8 @@ script = ExtResource("2_74par")
 localization_name = "Blast"
 localization_description = "It do be a blast."
 display_icon = ExtResource("1_kvtj3")
-targeting_range = SubResource("Resource_rqb67")
-targeting_aoe = SubResource("Resource_ncq3r")
+targeting_range = SubResource("Resource_tt7ql")
+targeting_aoe = SubResource("Resource_00lpx")
 base_sp_cost = 5
 base_ap_cost = 2
 base_cooldown = 0
