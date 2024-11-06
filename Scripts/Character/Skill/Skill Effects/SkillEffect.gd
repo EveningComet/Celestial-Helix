@@ -3,11 +3,25 @@ class_name SkillEffect extends Resource
 
 signal effect_finished
 
+@export_category("Base Info")
 ## Based on the stat being scaled, how much damage, healing, etc. to perform.
 @export var power_scale: float = 1.0
 
 ## What stat does this use? Used as an enum to allow for 
 @export var stat_used: StatHelper.StatTypes = StatHelper.StatTypes.PhysicalPower
+
+# Not all effects will deal damage, but this needs to be in the base class for
+# convenience
+@export_category("Damage Data")
+## Dictates what type of damage this skill does.
+@export var damage_type: StatHelper.DamageTypes = StatHelper.DamageTypes.Base
+
+## If the target has at least one debuff applied to them, how much extra damage
+## should be applied?
+@export var bonus_damage_scale_on_debuffs_present: float = 0.0
+
+## Scales the percentage of damage that should be healed for the attacker.
+@export_range(0.0, 1.0) var attacker_heal_percentage: float = 0.0
 
 func execute(targeting_data: TargetingData) -> void:
 	pass

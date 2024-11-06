@@ -21,8 +21,7 @@ var _curr_lifetime:       float = 0.0
 @export var application_type: ApplicationTypes
 
 ## How much healing/damage to apply.
-var _power: int = 5
-# TODO: Element/Type.
+var _damage_data: DamageData = null
 
 var _velocity: Vector3 = Vector3.ZERO
 
@@ -37,8 +36,13 @@ func _physics_process(delta: float) -> void:
 	if _curr_lifetime > max_lifetime:
 		_on_destroy()
 
-func initialize(direction: Vector3, f_owner: FactionOwner) -> void:
-	_velocity = direction
+func initialize(
+		direction: Vector3,
+		f_owner:   FactionOwner,
+		dd:        DamageData
+	) -> void:
+	_velocity    = direction
+	_damage_data = dd
 	faction_owner.copy_faction( f_owner )
 
 func _on_body_entered(body) -> void:
@@ -52,15 +56,15 @@ func _on_body_entered(body) -> void:
 				if faction_owner.faction == as_unit.faction_owner.faction:
 					return
 				
-				# Deal the damage
-				as_unit.combatant.stats
+				# Deal the damage.
+				as_unit.combatant.stats.take_damage(_damage_data)
 			
 			ApplicationTypes.Heal:
 				# Don't heal enemies.
 				if faction_owner.faction != as_unit.faction_owner.faction:
 					return
 				
-				as_unit.combatant.stats.heal(_power)
+				as_unit.combatant.stats.heal(_damage_data.damage_amount)
 	if OS.is_debug_build() == true:
 		print("Projectile :: %s has collided with %s." % [name, body.name])
 	_on_destroy()

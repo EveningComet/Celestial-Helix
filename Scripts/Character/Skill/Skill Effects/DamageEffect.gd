@@ -1,12 +1,17 @@
-## Defines a skill that should do some amount of damage.
+## Defines a skill that should directly apply damage.
 class_name DamageEffect extends SkillEffect
 
-## Dictates what type of damage this skill does.
-@export var damage_type: StatHelper.DamageTypes = StatHelper.DamageTypes.Base
-
-## If the target has at least one debuff applied to them, how much extra damage
-## should be applied?
-@export var bonus_damage_scale_on_debuffs_present: float = 0.0
-
-## Scales the percentage of damage that should be healed for the attacker.
-@export_range(0.0, 1.0) var attacker_heal_percentage: float = 0.0
+func execute(targeting_data: TargetingData) -> void:
+	# Setup the damage data
+	var stats: Stats = targeting_data.activator.combatant.stats
+	var damage_data: DamageData        = DamageData.new()
+	damage_data.damage_type            = damage_type
+	damage_data.activator              = stats
+	damage_data.damage_amount          = get_power(stats)
+	damage_data.base_power_scale       = power_scale
+	damage_data.damage_heal_percentage = attacker_heal_percentage
+	
+	for t: Unit in targeting_data.targets:
+		if t != null:
+			t.combatant.stats.take_damage(damage_data)
+	effect_finished.emit()

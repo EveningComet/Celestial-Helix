@@ -9,6 +9,13 @@ signal skill_executed
 @export_multiline var localization_description: String = "New description."
 @export var display_icon: Texture2D
 
+@export_category("Targeting")
+## Defines "where" a skill targets.
+@export var targeting_range: TargetingRange
+
+## This is what gets targeted where.
+@export var targeting_aoe:   TargetingAOE
+
 @export_category("Definitions")
 @export var base_sp_cost:    int  = 5
 @export var base_ap_cost:    int  = 1

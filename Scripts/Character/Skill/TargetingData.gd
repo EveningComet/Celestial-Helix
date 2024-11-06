@@ -8,12 +8,9 @@ var activator: Unit
 ## or shooting a projectile.
 var origin: Vector3 = Vector3.ZERO
 
-## Some skills will need to know where to fire a projectile, play an effect, etc.
-var direction: Vector3 = Vector3.ZERO
-# TODO: Is direction redundant with target location?
-
-## Some skills will need to know the final destination, such as teleports.
-var target_location: Vector3 = Vector3.ZERO
+## Some skills will need to know the final destination, such as teleports. Others will need
+## a direction.
+var target_v: Vector3 = Vector3.ZERO
 
 ## The things that will have stuff done to them.
 var targets: Array[Unit] = []
