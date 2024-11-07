@@ -34,3 +34,30 @@ func execute(targeting_data: TargetingData) -> void:
 	
 	# Everything is done. Return control
 	skill_executed.emit()
+
+## Go through the stored effects and return an object storing something that can
+## be used to make decisions.
+func get_usable_data(activator: Unit) -> Dictionary:
+	var a_stats: Stats = activator.combatant.stats
+	var data: Dictionary = {}
+	data.damage_datas  = []
+	data.ap_cost          = base_ap_cost
+	data.healing_power = 0
+	for e: SkillEffect in effects:
+		
+		if e is DamageEffect:
+			var dd: DamageData  = DamageData.new()
+			dd.damage_amount    = e.get_power(a_stats)
+			dd.damage_type      = e.damage_type
+			dd.base_power_scale = e.power_scale
+			dd.status_damage_scaler = e.bonus_damage_scale_on_debuffs_present
+			dd.damage_heal_percentage = e.attacker_heal_percentage
+			data.damage_datas.append( dd )
+		
+		elif e is HealEffect:
+			data.healing_power += (e as HealEffect).get_power(a_stats)
+		
+		elif e is SESpawnProjectile:
+			pass
+	
+	return data

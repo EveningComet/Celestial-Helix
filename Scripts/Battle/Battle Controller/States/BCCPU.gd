@@ -2,8 +2,9 @@
 class_name BCCPU extends BattleControlState
 
 func enter(msgs: Dictionary = {}) -> void:
-	await get_tree().create_timer(1.0, false, true).timeout
-	_pick_best_decision()
+	_perform_turn()
 
-func _pick_best_decision() -> void:
-	active_participant.finished_turn.emit( active_participant )
+## Have the enemy do its turn.
+func _perform_turn() -> void:
+	var enemy_brain: EnemyBrain = active_participant.get_node("EnemyBrain")
+	enemy_brain.do_turn()
