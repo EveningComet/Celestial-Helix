@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bb528yh326vob"]
+[gd_scene load_steps=20 format=3 uid="uid://bb528yh326vob"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Unit.gd" id="1_uje4s"]
 [ext_resource type="PackedScene" uid="uid://d13cbb6dnvyd0" path="res://Scenes/Characters/Models/Scoppio Knight.tscn" id="2_4qthx"]
@@ -11,8 +11,11 @@
 [ext_resource type="Script" path="res://Scripts/Battle/AI/EnemyBrain.gd" id="8_vl3ja"]
 [ext_resource type="Resource" uid="uid://boh68o7oakd7c" path="res://Game Data/Skills/Blast.tres" id="9_aupvu"]
 [ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="9_q4p8a"]
-[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="12_4hivg"]
-[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="13_8iytn"]
+[ext_resource type="Resource" uid="uid://dps4bfb2p5lo6" path="res://Game Data/AI/Utility Behaviors/Attack Weakest Behavior.tres" id="12_usln1"]
+[ext_resource type="Script" path="res://Scripts/Battle/AI/States/AIWaiting.gd" id="13_kk5qb"]
+[ext_resource type="Script" path="res://Scripts/Battle/AI/States/AIDecidingAction.gd" id="14_eabyy"]
+[ext_resource type="Script" path="res://Scripts/Battle/AI/States/AIMovingTowardsTarget.gd" id="15_2j2u1"]
+[ext_resource type="Script" path="res://Scripts/Battle/AI/States/AIExecuteAction.gd" id="16_offfs"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k446r"]
 
@@ -20,59 +23,8 @@
 script = ExtResource("8_8tis7")
 skill = ExtResource("9_aupvu")
 
-[sub_resource type="Curve" id="Curve_as1gg"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.204706), 0.0, 0.0, 0, 0]
-point_count = 2
-script = ExtResource("13_8iytn")
-curve_type = 4
-exponent = 1
-slope = 1
-x_shift = 0.0
-y_shift = 0.0
-
-[sub_resource type="Resource" id="Resource_gk216"]
-script = ExtResource("12_4hivg")
-input_key = "target_hp"
-invert = false
-response_curve = SubResource("Curve_as1gg")
-
-[sub_resource type="Curve" id="Curve_ht3yb"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-script = ExtResource("13_8iytn")
-curve_type = 4
-exponent = 1
-slope = 1
-x_shift = 0.0
-y_shift = 0.0
-
-[sub_resource type="Resource" id="Resource_g4nux"]
-script = ExtResource("12_4hivg")
-input_key = "potential_damage"
-invert = false
-response_curve = SubResource("Curve_ht3yb")
-
-[sub_resource type="Curve" id="Curve_k5evi"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.103297), 0.0, 0.0, 0, 0]
-point_count = 2
-script = ExtResource("13_8iytn")
-curve_type = 4
-exponent = 1
-slope = 1
-x_shift = 0.0
-y_shift = 0.0
-
-[sub_resource type="Resource" id="Resource_aebfy"]
-script = ExtResource("12_4hivg")
-input_key = "distance_to_position"
-invert = false
-response_curve = SubResource("Curve_k5evi")
-
-[sub_resource type="Resource" id="Resource_ym61g"]
-script = ExtResource("9_q4p8a")
-name = &"Attack Weakest"
-aggregation = 0
-considerations = Array[ExtResource("12_4hivg")]([SubResource("Resource_gk216"), SubResource("Resource_g4nux"), SubResource("Resource_aebfy")])
+[sub_resource type="SphereShape3D" id="SphereShape3D_uwwbu"]
+radius = 20.0
 
 [node name="Enemy Template" type="CharacterBody3D" node_paths=PackedStringArray("skin_handler")]
 script = ExtResource("1_uje4s")
@@ -96,6 +48,7 @@ faction = 1
 
 [node name="Mover" type="Node" parent="."]
 script = ExtResource("5_cxo24")
+rot_speed = 5.0
 
 [node name="SkillHandler" type="Node" parent="."]
 script = ExtResource("6_p3syl")
@@ -103,6 +56,24 @@ _skills = Array[ExtResource("8_8tis7")]([SubResource("Resource_y71f7")])
 
 [node name="EnemyBrain" type="Node" parent="."]
 script = ExtResource("8_vl3ja")
-behaviors = Array[ExtResource("9_q4p8a")]([SubResource("Resource_ym61g")])
+utility_behaviors = Array[ExtResource("9_q4p8a")]([ExtResource("12_usln1")])
+initial_state = NodePath("AIWaiting")
+
+[node name="AIWaiting" type="Node" parent="EnemyBrain"]
+script = ExtResource("13_kk5qb")
+
+[node name="AIDecidingAction" type="Node" parent="EnemyBrain"]
+script = ExtResource("14_eabyy")
+
+[node name="AIMovingTowardsTarget" type="Node" parent="EnemyBrain"]
+script = ExtResource("15_2j2u1")
+
+[node name="AIExecuteAction" type="Node" parent="EnemyBrain"]
+script = ExtResource("16_offfs")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Awareness Radius" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Awareness Radius"]
+shape = SubResource("SphereShape3D_uwwbu")

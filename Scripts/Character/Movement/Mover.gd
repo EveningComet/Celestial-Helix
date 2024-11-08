@@ -11,7 +11,7 @@ class_name Mover extends Node
 @export var accel:      float = 60.0
 ## When not moving, this will help make the character stop moving.
 @export var friction:   float = 50.0
-var rot_speed: float = 10.0
+@export var rot_speed: float = 10.0
 
 @export_category("Jump & Gravity")
 @export var max_jump_height:   float = 3   # How high we can jump

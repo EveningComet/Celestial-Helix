@@ -45,7 +45,7 @@ func _on_skill_usage_confirmed(index: int) -> void:
 	if _skill_already_executed == true:
 		return
 	
-	_determine_targeting_resolution(_desired_skill.skill )
+	_determine_targeting_resolution( _desired_skill.skill )
 
 ## Should be called after a skill has been finished.
 func _on_skill_executed() -> void:
@@ -71,7 +71,6 @@ func _determine_targeting_resolution(skill_data: SkillData) -> void:
 	
 func _get_targeting_data(t_range: TargetingRange) -> TargetingData:
 	if t_range is TRDirection:
-		print("PBSkillTargeting :: Shalom. We found a skill that needs a direction.")
 		return (t_range as TRDirection).get_targeting_data(
 			_curr_unit,
 			(_camera_controller.get_aim_target() - _curr_unit.global_position).normalized()

@@ -7,4 +7,4 @@ func enter(msgs: Dictionary = {}) -> void:
 ## Have the enemy do its turn.
 func _perform_turn() -> void:
 	var enemy_brain: EnemyBrain = active_participant.get_node("EnemyBrain")
-	enemy_brain.do_turn()
+	enemy_brain.do_turn(get_participants())
