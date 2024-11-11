@@ -62,7 +62,7 @@ func _on_skill_targeting_canceled() -> void:
 func _determine_targeting_resolution(skill_data: SkillData) -> void:
 	# We have the base info, do we need more work for the targets?
 	var targeting_data: TargetingData = _get_targeting_data(skill_data.targeting_range)
-	targeting_data.targets = _get_aoe(skill_data.targeting_aoe)
+	targeting_data.targets = TargetingUtils.get_aoe(skill_data.targeting_aoe)
 	
 	# Finally, execute the skill
 	_desired_skill.skill.skill_executed.connect( _on_skill_executed )
@@ -76,11 +76,3 @@ func _get_targeting_data(t_range: TargetingRange) -> TargetingData:
 			(_camera_controller.get_aim_target() - _curr_unit.global_position).normalized()
 		)
 	return null
-
-func _get_aoe(t_aoe: TargetingAOE) -> Array[Unit]:
-	if t_aoe is DirectionAOE:
-		return []
-	return []
-
-func _go_through_with_action() -> void:
-	_skill_already_executed = true

@@ -19,3 +19,6 @@ func get_participants() -> Array[Unit]:
 
 func get_turn_queue() -> Array[Unit]:
 	return turn_queue
+
+func _unhandled_input(event: InputEvent) -> void:
+	curr_state.check_for_unhandled_input( event )

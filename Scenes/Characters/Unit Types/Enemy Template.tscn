@@ -30,6 +30,10 @@ radius = 20.0
 script = ExtResource("1_uje4s")
 skin_handler = NodePath("SkinHandler")
 
+[node name="LOS Ray" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+target_position = Vector3(0, 0, -100)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_k446r")
@@ -48,14 +52,14 @@ faction = 1
 
 [node name="Mover" type="Node" parent="."]
 script = ExtResource("5_cxo24")
-rot_speed = 5.0
 
 [node name="SkillHandler" type="Node" parent="."]
 script = ExtResource("6_p3syl")
 _skills = Array[ExtResource("8_8tis7")]([SubResource("Resource_y71f7")])
 
-[node name="EnemyBrain" type="Node" parent="."]
+[node name="EnemyBrain" type="Node" parent="." node_paths=PackedStringArray("los_ray")]
 script = ExtResource("8_vl3ja")
+los_ray = NodePath("../LOS Ray")
 utility_behaviors = Array[ExtResource("9_q4p8a")]([ExtResource("12_usln1")])
 initial_state = NodePath("AIWaiting")
 

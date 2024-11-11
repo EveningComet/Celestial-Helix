@@ -1,6 +1,9 @@
 ## Defines how an enemy works.
 class_name EnemyBrain extends StateMachine
 
+## Helps the AI with determining if it has a clear sight on a target.
+@export var los_ray: RayCast3D
+
 ## Defines what a particular enemy can do. These are the actions it can take.
 @export var utility_behaviors: Array[UtilityAIBehavior] = []
 

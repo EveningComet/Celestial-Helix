@@ -18,5 +18,6 @@ func _initialize_battle() -> void:
 	# TODO: Sort based on the unit's speed.
 	get_turn_queue().append_array( get_participants() )
 	
+	
 	# Start with the fastest unit
 	_next_participant()

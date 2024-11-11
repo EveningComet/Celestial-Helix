@@ -149,6 +149,16 @@ polygon = PackedVector2Array(0, 0, 0, 0.5, 3, 0)
 depth = 4.0
 material = SubResource("StandardMaterial3D_vpc0e")
 
+[node name="Fall Point" type="NavigationLink3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.24686, -14)
+bidirectional = false
+end_position = Vector3(0, -2, 3)
+
+[node name="Fall Point2" type="NavigationLink3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3.24686, -14)
+bidirectional = false
+end_position = Vector3(0, -2, 3)
+
 [node name="PlayerBattleController" type="Node" parent="." node_paths=PackedStringArray("camera_controller")]
 script = ExtResource("16_5v7gw")
 camera_controller = NodePath("../Camera Rig")
@@ -202,6 +212,7 @@ script = ExtResource("5_3clpg")
 current = true
 
 [node name="Aimcast" type="RayCast3D" parent="Camera Rig/Camera3D"]
+visible = false
 target_position = Vector3(0, 0, -1000)
 
 [node name="Test Enemy" parent="." instance=ExtResource("9_k366k")]

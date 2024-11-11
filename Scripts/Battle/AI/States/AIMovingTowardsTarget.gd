@@ -12,12 +12,14 @@ func exit() -> void:
 
 # TODO: Increment/decrement speed based on the distance.
 func physics_update(delta: float) -> void:
-	var dist:     float = 10.0
+	var dist:     float = 10.0 # TODO: Have this dist based on the skill.
 	var dist_sqr: float = dist * dist
 	var d:        float = _unit.global_position.distance_squared_to(_curr_action.target_unit.global_position)
 	if d <= dist_sqr:
-		my_state_machine.change_to_state("AIExecuteAction")
-		return
+		
+		if _is_los_valid() == true:
+			my_state_machine.change_to_state("AIExecuteAction")
+			return
 	
 	elif _unit.curr_action_points < 1:
 		pass

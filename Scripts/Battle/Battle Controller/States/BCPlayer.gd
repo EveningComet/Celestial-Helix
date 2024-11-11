@@ -5,6 +5,6 @@ func enter(msgs: Dictionary = {}) -> void:
 	if OS.is_debug_build() == true:
 		print("BCPlayer :: The active unit is controlled by the player.")
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("end_turn"):
+func check_for_unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("end_turn"):
 		active_participant.finished_turn.emit( active_participant )
